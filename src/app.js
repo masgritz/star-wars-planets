@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
-// require('./db/mongoose')
 
 const planetRouter = require('./routers/planet.router')
 
