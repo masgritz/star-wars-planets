@@ -15,6 +15,7 @@ describe('tests involving the initial set of planets in the database', () => {
   test('planets are in the json format and match the initial planet object length', async () => {
     const res = await api
       .get('/api/planets')
+      .query({ limit: 0 })
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
@@ -100,6 +101,34 @@ describe('tests for planet POST operations', () => {
 })
 
 describe('tests for planet GET operations', () => {
+  test('returns the first 3 planets', async () => {
+    const res = await api
+      .get('/api/planets')
+      .query({ limit: 3 })
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const planetsAtEnd = await planetsInDb()
+
+    expect(res.body).toHaveLength(3)
+    expect(res.body[0].name).toEqual(planetsAtEnd[0].name)
+    expect(res.body[2].name).toEqual(planetsAtEnd[2].name)
+  })
+
+  test('returns the final 3 planets', async () => {
+    const res = await api
+      .get('/api/planets')
+      .query({ limit: 3, skip: 3 })
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const planetsAtEnd = await planetsInDb()
+
+    expect(res.body).toHaveLength(3)
+    expect(res.body[0].name).toEqual(planetsAtEnd[3].name)
+    expect(res.body[2].name).toEqual(planetsAtEnd[5].name)
+  })
+
   test('a single planet can be acessed through its id', async () => {
     const res = await api
       .get('/api/planets')
