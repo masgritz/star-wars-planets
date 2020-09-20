@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "NODE_ENV=development nodemon src/index.js",
-    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "start": "cross-env NODE_EN=production node src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -14,10 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.5",
     "mongoose-unique-validator": "^2.0.3",
-    "dotenv": "^8.2.0",
     "validator": "^13.1.1"
   },
   "devDependencies": {
