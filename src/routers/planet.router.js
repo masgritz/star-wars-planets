@@ -38,6 +38,21 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const planet = await Planet.findById(id)
+
+    if (!planet) {
+      return res.status(404).end()
+    }
+    res.send(planet)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 router.patch('/:id', async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['name', 'climate', 'terrain']
