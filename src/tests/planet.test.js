@@ -186,6 +186,15 @@ describe('tests for planet GET operations', () => {
 
     expect(res.body.name).toBeUndefined()
   })
+
+  test('a search with no query returns a 204 status', async () => {
+    const res = await api
+      .get('/api/planets/search')
+      .query()
+      .expect(204)
+
+    expect(res.body.name).toBeUndefined()
+  })
 })
 
 describe('tests for planet UPDATE operations', () => {
