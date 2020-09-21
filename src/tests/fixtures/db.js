@@ -31,6 +31,16 @@ const initialPlanets = [{
   name: 'Polys Massa',
   climate: 'artificial temperate',
   terrain: 'asteroid'
+}, {
+  _id: new mongoose.Types.ObjectId(),
+  name: 'Yavin Prime',
+  climate: 'Uninhabitable',
+  terrain: 'gas'
+}, {
+  _id: new mongoose.Types.ObjectId(),
+  name: 'Yavin IV',
+  climate: 'temperate to tropical',
+  terrain: 'lush moon'
 }]
 
 const populateDatabase = async () => {

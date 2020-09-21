@@ -154,8 +154,19 @@ describe('tests for planet GET operations', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    expect(res.body.name).toEqual('Alderaan')
-    expect(res.body.appearances).toEqual(2)
+    expect(res.body[0].name).toEqual('Alderaan')
+    expect(res.body[0].appearances).toEqual(2)
+  })
+
+  test('two planets with similar names can be found', async () => {
+    const res = await api
+      .get('/api/planets/search')
+      .query({ name: 'Yav' })
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(res.body).toHaveLength(2)
+    res.body.map(planet => expect(planet.name).toContain('Yav'))
   })
 
   test('trying to find a planet with an invalid name returns a 404 status', async () => {

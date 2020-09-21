@@ -23,8 +23,8 @@ router.get('/search', async (req, res) => {
 
   try {
     if (name) {
-      const planet = await Planet.findOne({ name })
-      return planet ? res.send(planet) : res.status(404).end()
+      const planet = await Planet.find({ 'name': { '$regex': name, '$options': 'i' } })
+      return planet.length > 0 ? res.send(planet) : res.status(404).end()
     }
 
     if (id) {
