@@ -200,8 +200,7 @@ describe('tests for planet GET operations', () => {
 describe('tests for planet UPDATE operations', () => {
   test('Mispelled "Polys" Massa planet exists in the database and has 0 appearances', async () => {
     const res = await api
-      .get('/api/planets')
-      .query({ id: initialPlanets[5]._id.toString() })
+      .get(`/api/planets/${initialPlanets[5]._id}`)
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
@@ -237,8 +236,9 @@ describe('tests for planet UPDATE operations', () => {
     expect(res.body.error).toBeDefined()
 
     const anotherRes = await api
-      .get('/api/planets')
-      .query({ id: initialPlanets[5]._id.toString() })
+      .get(`/api/planets/${initialPlanets[5]._id.toString()}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
 
     expect(anotherRes.body.name).toEqual('Polys Massa')
     expect(anotherRes.body.population).toBeUndefined()
@@ -266,8 +266,7 @@ describe('tests for planet UPDATE operations', () => {
       .expect(400)
 
     const res = await api
-      .get('/api/planets')
-      .query({ id: initialPlanets[5]._id.toString() })
+      .get(`/api/planets/${initialPlanets[5]._id}`)
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
