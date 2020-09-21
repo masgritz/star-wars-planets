@@ -131,8 +131,7 @@ describe('tests for planet GET operations', () => {
 
   test('a single planet can be acessed through its id', async () => {
     const res = await api
-      .get('/api/planets')
-      .query({ id: initialPlanets[2]._id.toString() })
+      .get(`/api/planets/${initialPlanets[2]._id}`)
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
@@ -140,18 +139,17 @@ describe('tests for planet GET operations', () => {
     expect(res.body.appearances).toEqual(1)
   })
 
-  test('trying to access a planet with an invalid id should return a 404 status', async () => {
+  test('trying to access a planet with an invalid id returns a 404 status', async () => {
     const res = await api
-      .get('/api/planets')
-      .query({ id: '5a422b3a5b54f676274d17f9' })
+      .get('/api/planets/5a422b3a5b54f676274d17f9')
       .expect(404)
 
     expect(res.body.name).toBeUndefined()
   })
 
-  test('a single planet can be acessed through its name', async () => {
+  test('a single planet can be found through its name', async () => {
     const res = await api
-      .get('/api/planets')
+      .get('/api/planets/search')
       .query({ name: 'Alderaan' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
@@ -160,10 +158,30 @@ describe('tests for planet GET operations', () => {
     expect(res.body.appearances).toEqual(2)
   })
 
-  test('trying to access a planet with an invalid name should return a 404 status', async () => {
+  test('trying to find a planet with an invalid name returns a 404 status', async () => {
     const res = await api
-      .get('/api/planets')
+      .get('/api/planets/search')
       .query({ name: 'Exagol' })
+      .expect(404)
+
+    expect(res.body.name).toBeUndefined()
+  })
+
+  test('a single planet can be found through its id', async () => {
+    const res = await api
+      .get('/api/planets/search')
+      .query({ id: initialPlanets[4]._id.toString() })
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(res.body.name).toEqual('Geonosis')
+    expect(res.body.appearances).toEqual(1)
+  })
+
+  test('trying to find a planet with an invalid id returns a 404 status', async () => {
+    const res = await api
+      .get('/api/planets/search')
+      .query({ id: '5a422b3a5b54f676274d17f9' })
       .expect(404)
 
     expect(res.body.name).toBeUndefined()
