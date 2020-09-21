@@ -18,8 +18,9 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.get('/', async (req, res) => {
-  const { id, name, limit = 10, skip = 0 } = req.query
+router.get('/search', async (req, res) => {
+  const { id, name } = req.query
+
   try {
     if (name) {
       const planet = await Planet.findOne({ name })
@@ -31,7 +32,16 @@ router.get('/', async (req, res) => {
       return planet ? res.send(planet) : res.status(404).end()
     }
 
-    const planets = await Planet.find({}).limit(parseInt(limit)).skip(parseInt(skip))
+    res.status(204).end()
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
+router.get('/', async (req, res) => {
+  const { limit = 10, skip = 0 } = req.query
+  try {
+    const planets = await Planet.find({}).limit(+limit).skip(+skip)
     res.send(planets)
   } catch (e) {
     res.status(500).send(e)
