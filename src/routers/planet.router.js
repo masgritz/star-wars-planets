@@ -19,11 +19,11 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/search', async (req, res) => {
-  const { id, name } = req.query
+  const { id, name, limit = 10, skip = 0 } = req.query
 
   try {
     if (name) {
-      const planet = await Planet.find({ 'name': { '$regex': name, '$options': 'i' } })
+      const planet = await Planet.find({ 'name': { '$regex': name, '$options': 'i' } }).limit(+limit).skip(+skip)
       return planet.length > 0 ? res.send(planet) : res.status(404).end()
     }
 
