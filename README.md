@@ -73,7 +73,7 @@ Update an existing planet (example, non-existing ObjectId):
 ```
 PATCH locahost:3000/api/planets/5f66d428cf8603693fc0221e
 {
-  "planet": "Yavin VI"
+  "planet": "Yavin VI",
   "climate": "temperate"
 }
 ```
