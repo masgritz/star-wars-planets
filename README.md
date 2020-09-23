@@ -25,7 +25,7 @@ Run the test suit:
 ```
 npm test
 ```
-It is necessary to set up a .env file at the root of the project with links to your local MongoDB (`MONGODB_URL, DEV_MONGODB_URL and TEST_MONGODB_URL`) and the port (`PORT`) you desire to run it in order for it function as intended.
+It is necessary to set up a .env file at the root of the project with links to your local MongoDB (`MONGODB_URL, DEV_MONGODB_URL and TEST_MONGODB_URL`) and the port (`PORT`) in order for it function as intended.
 
 Alternatively, this API is acessible on https://swplanet-api.herokuapp.com/api/planets.
 
